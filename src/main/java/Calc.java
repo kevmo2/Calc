@@ -12,20 +12,19 @@ public class Calc extends JFrame implements ActionListener {
     static JButton equalsButton,addButton,subButton,multiButton,divButton,clearButton,plusMinusButton,decimalButton;
     static JButton oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,nineButton,zeroButton;
     private static JTextField ansField;
-    private double visibleNumber = 0, storedNumber = 0, ans = 0;
-    private double plusMinus = -1;
-    private int addClick = 0, subClick = 0, multiClick = 0, divClick = 0;
-    private Boolean fieldClear = true;
+    private double visibleNumber, storedNumber;
+    private double plusMinus;
+    private Boolean fieldClear;
     private enum Operation {ADD, SUBTRACT, MULTIPLY, DIVIDE, NONE};
     private enum ClickType {NUMERIC, OPERATION, START};
-    private Operation queuedOperation = Operation.NONE;
-    private ClickType previousClick = ClickType.START;
+    private Operation queuedOperation;
+    private ClickType previousClick;
 
     public Calc() {
 
         //Ensure that the application actually closes
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("CalcBitch");
+        setTitle("Calculator");
         setResizable(false);
         setSize(230, 370);
         setLocationRelativeTo(null); //null ensures its in the middle of the screen
@@ -133,6 +132,12 @@ public class Calc extends JFrame implements ActionListener {
         decimalButton.addActionListener(this);
         plusMinusButton.addActionListener(this);
         equalsButton.addActionListener(this);
+        plusMinus = -1;
+        storedNumber = 0;
+        visibleNumber = 0;
+        fieldClear = true;
+        queuedOperation = Operation.NONE;
+        previousClick = ClickType.START;
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -197,10 +202,6 @@ public class Calc extends JFrame implements ActionListener {
 
     private Boolean isEqualsButtonPushed(ActionEvent event) {
         return event.getSource() == equalsButton;
-    }
-
-    private Boolean isDecimalButtonPushed(ActionEvent event) {
-        return event.getSource() == decimalButton;
     }
 
     private Boolean isPlusMinusButtonPushed(ActionEvent event) {
