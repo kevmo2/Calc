@@ -3,7 +3,7 @@
  */
 public class Run {
 
-    static Calc c = new Calc();
+    static CalculatorFrame c = new CalculatorFrame();
 
     public static void main(String[] args) {
         c.setVisible(true);
