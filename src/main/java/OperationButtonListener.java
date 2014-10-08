@@ -10,14 +10,19 @@ public class OperationButtonListener implements ActionListener {
 
     private String operationValue;
 
+    private CalculatorController controller;
 
+    private CalculatorFrame calculatorFrame;
 
-
-    public OperationButtonListener(OperationButton button) {
+    public OperationButtonListener(OperationButton button, CalculatorController controller, CalculatorFrame calculatorFrame) {
 
         operationEnum = button.returnButtonType();
 
         operationValue = button.getText();
+
+        this.controller = controller;
+
+        this.calculatorFrame = calculatorFrame;
     }
 
     /**
@@ -28,5 +33,6 @@ public class OperationButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Operation pushed: [" + operationValue +"]");
+        controller.operationButtonPushed((OperationButton) e.getSource(), calculatorFrame);
     }
 }

@@ -11,11 +11,19 @@ public class NumericButtonListener implements ActionListener {
 
     private String buttonValue;
 
-    public NumericButtonListener(NumericButton button) {
+    private CalculatorController controller;
+
+    private CalculatorFrame calculatorFrame;
+
+    public NumericButtonListener(NumericButton button, CalculatorController controller, CalculatorFrame calculatorFrame) {
 
         buttonType = button.returnButtonType();
 
         buttonValue = button.getText();
+
+        this.controller = controller;
+
+        this.calculatorFrame = calculatorFrame;
 
     }
 
@@ -28,5 +36,6 @@ public class NumericButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Number pushed: [" + buttonValue +"]");
+        controller.numericButtonPushed((NumericButton) e.getSource(), calculatorFrame);
     }
 }

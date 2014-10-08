@@ -11,5 +11,11 @@ public enum OperationEnum {
 
     DIVIDE,
 
-    NONE
+    NONE,
+
+    EQUALS,
+
+    CLEAR,
+
+    PLUSMINUS
 }

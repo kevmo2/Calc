@@ -8,18 +8,16 @@ public class CalculatorFrame extends JFrame //implements ActionListener
 {
 
     private JPanel panel;
-    static OperationButton equalsButton, addButton, subButton, multiButton, divButton, clearButton, plusMinusButton;
-    static NumericButton oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, zeroButton, decimalButton;
+    private static OperationButton equalsButton, addButton, subButton, multiButton, divButton, clearButton, plusMinusButton;
+    private NumericButton oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, zeroButton, decimalButton;
     private static JTextField ansField;
-    private double visibleNumber, storedNumber;
-    private double plusMinus;
     private Boolean fieldClear;
 
 
     private OperationEnum queuedOperation;
     private ButtonTypeEnum previousClick;
 
-    public CalculatorFrame() {
+    public CalculatorFrame(CalculatorController controller) {
 
         //Ensure that the application actually closes
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,19 +32,19 @@ public class CalculatorFrame extends JFrame //implements ActionListener
         panel.setLayout(null);
 
         //setup buttons
-        addButton = new OperationButton("+");
+        addButton = new OperationButton("+", OperationEnum.ADD);
         addButton.setSize(50, 50);
         addButton.setLocation(170, 175);
-        subButton = new OperationButton("-");
+        subButton = new OperationButton("-", OperationEnum.SUBTRACT);
         subButton.setSize(50, 50);
         subButton.setLocation(170, 120);
-        multiButton = new OperationButton("*");
+        multiButton = new OperationButton("*", OperationEnum.MULTIPLY);
         multiButton.setSize(50, 50);
         multiButton.setLocation(170, 65);
-        divButton = new OperationButton("/");
+        divButton = new OperationButton("/", OperationEnum.DIVIDE);
         divButton.setSize(50, 50);
         divButton.setLocation(115, 65);
-        equalsButton = new OperationButton("=");
+        equalsButton = new OperationButton("=", OperationEnum.EQUALS);
         equalsButton.setSize(50, 105);
         equalsButton.setLocation(170, 230);
         zeroButton = new NumericButton("0");
@@ -79,13 +77,13 @@ public class CalculatorFrame extends JFrame //implements ActionListener
         nineButton = new NumericButton("9");
         nineButton.setSize(50, 50);
         nineButton.setLocation(115, 120);
-        clearButton = new OperationButton("C");
+        clearButton = new OperationButton("C", OperationEnum.CLEAR);
         clearButton.setSize(50, 50);
         clearButton.setLocation(5, 65);
         decimalButton = new NumericButton(".");
         decimalButton.setSize(50, 50);
         decimalButton.setLocation(115, 285);
-        plusMinusButton = new OperationButton("+/-");
+        plusMinusButton = new OperationButton("+/-", OperationEnum.PLUSMINUS);
         plusMinusButton.setSize(50, 50);
         plusMinusButton.setLocation(60, 65);
         ansField = new JTextField();
@@ -113,38 +111,33 @@ public class CalculatorFrame extends JFrame //implements ActionListener
         panel.add(equalsButton);
         panel.add(clearButton);
         add(panel); //permanently sets the panel
-        zeroButton.addActionListener(new NumericButtonListener(zeroButton));
-        oneButton.addActionListener(new NumericButtonListener(oneButton));
-        twoButton.addActionListener(new NumericButtonListener(twoButton));
-        threeButton.addActionListener(new NumericButtonListener(threeButton));
-        fourButton.addActionListener(new NumericButtonListener(fourButton));
-        fiveButton.addActionListener(new NumericButtonListener(fiveButton));
-        sixButton.addActionListener(new NumericButtonListener(sixButton));
-        sevenButton.addActionListener(new NumericButtonListener(sevenButton));
-        eightButton.addActionListener(new NumericButtonListener(eightButton));
-        nineButton.addActionListener(new NumericButtonListener(nineButton));
-        addButton.addActionListener(new OperationButtonListener(addButton));
-        subButton.addActionListener(new OperationButtonListener(subButton));
-        multiButton.addActionListener(new OperationButtonListener(multiButton));
-        divButton.addActionListener(new OperationButtonListener(divButton));
-        clearButton.addActionListener(new OperationButtonListener(clearButton));
-        decimalButton.addActionListener(new NumericButtonListener(decimalButton));
-        plusMinusButton.addActionListener(new OperationButtonListener(plusMinusButton));
-        equalsButton.addActionListener(new OperationButtonListener(equalsButton));
-        plusMinus = -1;
-        storedNumber = 0;
-        visibleNumber = 0;
-        fieldClear = true;
-        queuedOperation = OperationEnum.NONE;
-        previousClick = ButtonTypeEnum.START;
+        zeroButton.addActionListener(new NumericButtonListener(zeroButton, controller, this));
+        oneButton.addActionListener(new NumericButtonListener(oneButton, controller, this));
+        twoButton.addActionListener(new NumericButtonListener(twoButton, controller, this));
+        threeButton.addActionListener(new NumericButtonListener(threeButton, controller, this));
+        fourButton.addActionListener(new NumericButtonListener(fourButton, controller, this));
+        fiveButton.addActionListener(new NumericButtonListener(fiveButton, controller, this));
+        sixButton.addActionListener(new NumericButtonListener(sixButton, controller, this));
+        sevenButton.addActionListener(new NumericButtonListener(sevenButton, controller, this));
+        eightButton.addActionListener(new NumericButtonListener(eightButton, controller, this));
+        nineButton.addActionListener(new NumericButtonListener(nineButton, controller, this));
+        addButton.addActionListener(new OperationButtonListener(addButton, controller, this));
+        subButton.addActionListener(new OperationButtonListener(subButton, controller, this));
+        multiButton.addActionListener(new OperationButtonListener(multiButton, controller, this));
+        divButton.addActionListener(new OperationButtonListener(divButton, controller, this));
+        clearButton.addActionListener(new OperationButtonListener(clearButton, controller, this));
+        decimalButton.addActionListener(new NumericButtonListener(decimalButton, controller, this));
+        plusMinusButton.addActionListener(new OperationButtonListener(plusMinusButton, controller, this));
+        equalsButton.addActionListener(new OperationButtonListener(equalsButton, controller, this));
+        ansField.setText("0");
 
     }
 
-    public static String getAnsField() {
+    public String getAnsField() {
         return ansField.getText();
     }
 
-    public static void setAnsField(String ansField) {
+    public void setAnsField(String ansField) {
         CalculatorFrame.ansField.setText(ansField);
     }
 }

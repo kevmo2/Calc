@@ -3,9 +3,12 @@
  */
 public class Run {
 
-    static CalculatorFrame c = new CalculatorFrame();
+    static CalculatorController controller = new CalculatorController();
+
+    static CalculatorFrame c = new CalculatorFrame(controller);
 
     public static void main(String[] args) {
         c.setVisible(true);
     }
+
 }
